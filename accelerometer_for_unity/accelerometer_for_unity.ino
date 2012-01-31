@@ -7,5 +7,6 @@ void loop(){
   Serial.print(",");
   Serial.print(analogRead(1));
   Serial.print(",");
-  Serial.println(analogRead(2));
+  Serial.print(analogRead(2));
+  Serial.println(",");
 }

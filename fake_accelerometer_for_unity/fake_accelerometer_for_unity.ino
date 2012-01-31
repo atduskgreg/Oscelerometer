@@ -8,5 +8,6 @@ void loop(){
   Serial.print(",");
   Serial.print(random(120,140));
   Serial.print(",");
-  Serial.println(random(120,180));
+  Serial.print(random(120,180));
+  Serial.println(",");
 }
