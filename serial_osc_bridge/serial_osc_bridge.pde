@@ -6,9 +6,7 @@ OscP5 oscP5;
 Serial myPort;
 NetAddress myRemoteLocation;
 
-String[] values = {
-  "", "", ""
-};
+int[] values = new int[4];
 
 void setup() 
 {
@@ -25,11 +23,9 @@ void setup()
 void draw() {
   OscMessage myMessage = new OscMessage("/read/accelerometer");
 
-  for (int i = 0; i < values.length; i++) {
-    //println(i + ": " + values[i]);
+  println(values);
+  myMessage.add(values);
 
-    myMessage.add(int(values[i]));
-  }
   oscP5.send(myMessage, myRemoteLocation);
 }
 
@@ -38,11 +34,10 @@ void serialEvent(Serial thePort) {
     String inputString = thePort.readStringUntil('\n');
     if (inputString != null) {
       inputString = inputString.replace("\n", "");
-      values = inputString.split(",");
+      values = int(inputString.split(","));
     }
   }
 }
-
 
 
 
