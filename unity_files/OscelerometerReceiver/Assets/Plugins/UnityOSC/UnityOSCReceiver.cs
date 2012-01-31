@@ -32,12 +32,13 @@ public class UnityOSCReceiver : MonoBehaviour {
 
 		try {
 			receiver = new OSCReceiver(port);
-			thread = new Thread(new ThreadStart(listen));
-			thread.Start();
 			connected = true;
+		    thread = new Thread(new ThreadStart(listen));
+		    thread.Start();
+
 		} catch (Exception e) {
-			Console.WriteLine("failed to connect to port "+port);
-			Console.WriteLine(e.Message);
+			Debug.Log("failed to connect to port "+port);
+			Debug.Log(e.Message);
 		}
 	}
 	
@@ -74,9 +75,10 @@ public class UnityOSCReceiver : MonoBehaviour {
 
 	private void listen() {
 		while(connected) {
+
 			try {
 				OSCPacket packet = receiver.Receive();
-				if (packet!=null) {
+				if (packet!=null) {					
 					lock(processQueue){
 						
 						//Debug.Log( "adding  packets " + processQueue.Count );
@@ -89,10 +91,9 @@ public class UnityOSCReceiver : MonoBehaviour {
 							processQueue.Add( (OSCMessage)packet );
 						}
 					}
-				} else Console.WriteLine("null packet");
+				} else Debug.Log("null packet");
 			} catch (Exception e) { 
 				Debug.Log( e.Message );
-				Console.WriteLine(e.Message); 
 			}
 		}
 	}
